@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>北京中考数学真题知识点检索系统（2021–2025）</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>北京中考数学真题知识点检索系统</h1>
+    <p>基于 2021–2025 年北京市初中学业水平考试（中考）数学真题建库 · 知识点占比 · 模糊检索 · 出题思路 · 模拟出题</p>
+    <span class="data-badge">真题数据库：<b id="db-count">—</b> 道真题（5年 × 28题，题题含答案与解析）</span>
+  </header>
+
+  <div class="search-wrap">
+    <div class="search-box">
+      <input id="search-input" type="text" placeholder="模糊输入知识点，如：勾股、抛物线、不等式、切线、sin……" autocomplete="off">
+      <button id="search-btn">检索真题</button>
+    </div>
+    <div class="search-hint">
+      试一试：<span>勾股定理</span><span>二次函数</span><span>分式方程</span><span>切线</span><span>科学计数法</span><span>新定义</span>
+    </div>
+  </div>
+
+  <nav class="tabs">
+    <button data-tab="curriculum" class="active">📚 学期知识点与占比</button>
+    <button data-tab="search">🔍 真题检索结果</button>
+    <button data-tab="analysis">🧭 出题思路分析</button>
+    <button data-tab="generate">✏️ 模拟出题</button>
+  </nav>
+
+  <main>
+    <!-- 页1：学期知识点与占比 -->
+    <section id="page-curriculum" class="tab-page active">
+      <div class="card">
+        <h2>初中三个年级 · 六个学期知识点体系及中考占比</h2>
+        <p class="muted">
+          知识点体系按北京市普遍使用的人教版教材编排（七上 → 九下），另设“综合与实践”收录跨学期综合题型（如第28题新定义压轴题）。
+          占比 ＝ 该知识点关联真题的累计分值 ÷ 近5年总分值（500分）。一道题可能考查多个知识点，故各占比之和大于100%。
+          点击任意知识点可直接查看对应真题。
+        </p>
+      </div>
+      <div id="curriculum-host"></div>
+    </section>
+
+    <!-- 页2：检索结果 -->
+    <section id="page-search" class="tab-page">
+      <div class="card">
+        <h2>真题检索</h2>
+        <p class="muted">支持模糊输入：输入知识点的任意叫法（如“韦达定理”“抛物线”“中垂线”“解直角三角形”），系统将匹配规范知识点及其别名，返回出现年份、真题原文、标准答案与解析；同时对题干做全文匹配补充。</p>
+      </div>
+      <div id="search-result-info"></div>
+      <div id="search-result-host"></div>
+    </section>
+
+    <!-- 页3：出题思路 -->
+    <section id="page-analysis" class="tab-page">
+      <div class="card">
+        <h2>出题单位与命题特征</h2>
+        <p class="muted">北京市中考数学由<b>北京教育考试院</b>统一命题（全市一张卷）。以下结论由本系统对 2021–2025 年 140 道真题的结构化数据统计得出。</p>
+        <div class="insight-grid" style="margin-top:14px">
+          <div class="insight"><h4>① 结构五年不变</h4><p>8道选择（16分）+ 8道填空（16分）+ 12道解答（68分），共28题、满分100分、120分钟。选择填空每题2分，解答题5–7分，第27、28题为7分压轴。</p></div>
+          <div class="insight"><h4>② 题位高度固定</h4><p>相同题号年年考相同板块：第2题科学记数法（配时政数据）、第6题左右考概率、第17题实数计算、第18题不等式组/分式化简、第20题尺规作图+推理填空、第25题统计实践、第26题二次函数性质、第27题几何综合、第28题新定义压轴。</p></div>
+          <div class="insight"><h4>③ 情境化与教材本源</h4><p>约七成试题源于教材例习题改编；实际情境常取自时政与生活（教育扶贫、水电站、滑雪大跳台、邮政收入、节水清洗、生产线调度）。</p></div>
+          <div class="insight"><h4>④ 压轴题模式：新定义</h4><p>第28题连续五年为“新定义”题：给出全新概念（关联线段、θ可及点、关联点等），设三问——验证特例→求参数→求最值/取值范围，载体多为圆＋变换（旋转/对称/平移）。</p></div>
+          <div class="insight"><h4>⑤ 几何综合模式：变换+全等</h4><p>第27题固定为几何变换综合：以等腰三角形/直角三角形为底图，通过旋转或对称构造全等，第(2)问要求探索线段数量关系并证明，常用“截长补短”“倍长中线”“斜边中线”。</p></div>
+          <div class="insight"><h4>⑥ 分层设问、缓坡起步</h4><p>解答题普遍两问：第(1)问基础（求证/求值），第(2)问探究（含参讨论、最值、取值范围），“直接写出”类设问考查结论洞察而非书写过程。</p></div>
+        </div>
+      </div>
+      <div class="card">
+        <h2>28个题位 · 近5年考点分布（据真题库统计）</h2>
+        <div id="slot-table-host"></div>
+      </div>
+      <div class="card">
+        <h2>高频知识点 TOP 12（按累计分值）</h2>
+        <div id="top-kp-host"></div>
+      </div>
+    </section>
+
+    <!-- 页4：模拟出题 -->
+    <section id="page-generate" class="tab-page">
+      <div class="card">
+        <h2>模拟出题（依据考试院命题模式参数化生成）</h2>
+        <p class="muted">
+          每个模板对应真题中的一个<b>稳定题位</b>（如“题位17”表示历年第17题的固定考法），按其命题模式随机换参生成新题，
+          并同步生成<b>标准答案与完整解题过程</b>。生成的题目为原创模拟题，非真题。
+        </p>
+        <div class="gen-controls">
+          <select id="gen-select"></select>
+          <button id="gen-btn" class="btn-primary">生成一道模拟题</button>
+        </div>
+        <p class="gen-note">注：第27题几何综合与第28题新定义压轴题依赖图形与原创概念设计，不宜机械换参仿制，可在“出题思路分析”页查看其命题规律与全部真题。</p>
+      </div>
+      <div id="gen-host"></div>
+    </section>
+  </main>
+
+  <footer>
+    数据来源：2021–2025年北京市中考数学真题（经北京教育考试院发布、多家教育平台公开资料交叉核对整理）。
+    图形题已在题干中以文字描述图形要点；建议配合原卷图片使用。
+  </footer>
+
+  <script src="js/curriculum.js"></script>
+  <script src="js/questions-2021.js"></script>
+  <script src="js/questions-2022.js"></script>
+  <script src="js/questions-2023.js"></script>
+  <script src="js/questions-2024.js"></script>
+  <script src="js/questions-2025.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/generator.js"></script>
+</body>
+</html>
