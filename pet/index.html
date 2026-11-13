@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#e6d7c3">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect fill='%23e6d7c3' width='32' height='32'/%3E%3Cpath d='M4 22c6 0 8-8 14-8 4 0 6 5 10 3' fill='none' stroke='%238c3a2f' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+  <title>房间里有狗</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="sheet">
+    <header class="top">
+      <svg class="mark" viewBox="0 0 84 36" aria-hidden="true">
+        <path d="M4 24 C16 24 22 14 32 14 C40 14 44 22 54 18 C64 14 70 8 80 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        <circle cx="58" cy="17.2" r="1.1" fill="currentColor"/>
+      </svg>
+      <p class="eyebrow">一只不住在图片里的狗</p>
+      <h1>房间里有狗</h1>
+      <p id="aside" class="aside">纸箱还没拆</p>
+    </header>
+
+    <section id="chooser" aria-label="选择它的身体"></section>
+    <article id="log" aria-live="polite" aria-relevant="additions"></article>
+
+    <div id="reset-box" class="reset" hidden>
+      <p>它会忘掉这间屋子，连名字一起。</p>
+      <div class="reset-actions">
+        <button type="button" id="reset-yes">让它去别的人家</button>
+        <button type="button" id="reset-no">留下</button>
+      </div>
+    </div>
+
+    <form id="form" class="composer" hidden>
+      <div id="composer">
+        <div class="say-row">
+          <label class="sr" for="say">对它说</label>
+          <input id="say" type="text" autocomplete="off" enterkeyhint="send" placeholder="对它说一句，或做一件很小的事">
+          <button type="submit" class="send">说</button>
+        </div>
+        <div id="hints" class="hints"></div>
+        <p class="foot">
+          <button type="button" id="reset" class="texty">另一只狗</button>
+          <span>它只住在这台浏览器里。</span>
+        </p>
+      </div>
+    </form>
+  </div>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
