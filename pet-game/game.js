@@ -1089,8 +1089,8 @@
   function hearts(n) {
     const s = petScale();
     for (let i = 0; i < n; i++) {
-      spawn('heart', PET_X + rand(-45, 45) * s, PET_Y - rand(110, 170) * s, {
-        vx: rand(-25, 25), vy: rand(-80, -45), life: rand(0.8, 1.3), size: rand(7, 12), rot: rand(-0.3, 0.3),
+      spawn('heart', PET_X + rand(-62, 62) * s, PET_Y - rand(70, 190) * s, {
+        vx: rand(-25, 25), vy: rand(-85, -45), life: rand(0.9, 1.4), size: rand(9, 15), rot: rand(-0.3, 0.3),
       });
     }
   }
@@ -1568,8 +1568,9 @@
       sfx.tap();
       return;
     }
-    hearts(3);
+    hearts(5);
     changeStat('happy', 2.5);
+    if (!bubble && Math.random() < 0.3) say('happyLines');
     view.joyT = Math.max(view.joyT, 0.55);
     sfx.pet();
     if (petXpTimer <= 0) {

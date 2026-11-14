@@ -42,7 +42,8 @@ button:disabled { cursor: not-allowed; }
 
 #app {
   width: 100%;
-  max-width: 500px;
+  /* Grow with the viewport height so the whole game still fits on screen without scrolling. */
+  max-width: clamp(500px, calc((100dvh - 370px) * 1.2), 680px);
   background: var(--card);
   border-radius: var(--radius);
   box-shadow: 0 24px 60px -20px rgba(140, 90, 120, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.8) inset;
@@ -110,6 +111,7 @@ button:disabled { cursor: not-allowed; }
   padding: 4px 12px 4px 6px;
 }
 .icon { display: block; flex: none; }
+.action .icon { width: 36px !important; height: 36px !important; }
 
 .icon-btn {
   flex: none;
@@ -446,6 +448,22 @@ button:disabled { cursor: not-allowed; }
   50% { opacity: 0.55; }
 }
 
+@media (min-width: 640px) and (min-height: 880px) {
+  #app { padding: 20px; gap: 16px; }
+  .hud-name { font-size: 24px; }
+  .badge, .hud-sub { font-size: 14px; }
+  .xp { height: 9px; }
+  .coins { font-size: 20px; }
+  .stats { gap: 10px 22px; }
+  .stat-label { font-size: 15px; }
+  .bar { height: 14px; }
+  .actions { gap: 12px; }
+  .action { font-size: 16px; padding: 14px 2px 12px; gap: 6px; border-radius: 22px; }
+  .action .icon { width: 46px !important; height: 46px !important; }
+  .food { font-size: 15px; padding: 10px 2px 8px; }
+  .food .price { font-size: 14px; }
+  .toast { font-size: 16px; }
+}
 @media (max-width: 520px) {
   body { padding: 0; }
   #app { border-radius: 0; min-height: 100dvh; padding: 12px; }
