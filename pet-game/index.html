@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ffd9c2">
+<title>Pawpal</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23ffd9c2'/%3E%3Cg fill='%23ff7f9a'%3E%3Cellipse cx='32' cy='41' rx='13' ry='11'/%3E%3Cellipse cx='14' cy='29' rx='5.5' ry='7'/%3E%3Cellipse cx='25' cy='18' rx='5.5' ry='7'/%3E%3Cellipse cx='39' cy='18' rx='5.5' ry='7'/%3E%3Cellipse cx='50' cy='29' rx='5.5' ry='7'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<main id="app">
+  <header class="hud">
+    <div class="hud-main">
+      <div class="hud-name">
+        <span id="pet-name-label"></span>
+        <span class="badge" id="level-badge"></span>
+      </div>
+      <div class="xp"><div class="xp-fill" id="xp-fill"></div></div>
+      <div class="hud-sub" id="hud-sub"></div>
+    </div>
+    <div class="coins">
+      <canvas class="icon" data-icon="coin" data-size="24"></canvas>
+      <span id="coins">0</span>
+    </div>
+    <button class="icon-btn" id="settings-btn" aria-label="Settings">
+      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+        <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" fill="none"/>
+      </svg>
+    </button>
+  </header>
+
+  <div class="stage" id="stage">
+    <canvas id="scene"></canvas>
+    <div class="toast" id="toast"></div>
+    <button class="quit-btn" id="quit-btn" hidden aria-label="Quit">&times;</button>
+    <div class="food-tray" id="food-tray" hidden></div>
+  </div>
+
+  <section class="stats">
+    <div class="stat" data-stat="hunger"><span class="stat-label" data-i18n="hunger"></span><div class="bar"><div class="fill"></div></div></div>
+    <div class="stat" data-stat="happy"><span class="stat-label" data-i18n="happy"></span><div class="bar"><div class="fill"></div></div></div>
+    <div class="stat" data-stat="energy"><span class="stat-label" data-i18n="energy"></span><div class="bar"><div class="fill"></div></div></div>
+    <div class="stat" data-stat="clean"><span class="stat-label" data-i18n="clean"></span><div class="bar"><div class="fill"></div></div></div>
+  </section>
+
+  <nav class="actions">
+    <button class="action" data-action="feed"><canvas class="icon" data-icon="kibble" data-size="36"></canvas><span data-i18n="feed"></span></button>
+    <button class="action" data-action="play"><canvas class="icon" data-icon="ball" data-size="36"></canvas><span data-i18n="play"></span></button>
+    <button class="action" data-action="bath"><canvas class="icon" data-icon="bubble" data-size="36"></canvas><span data-i18n="bath"></span></button>
+    <button class="action" data-action="sleep"><canvas class="icon" id="sleep-icon" data-icon="moon" data-size="36"></canvas><span id="sleep-label"></span></button>
+    <button class="action" data-action="shop"><canvas class="icon" data-icon="bag" data-size="36"></canvas><span data-i18n="shop"></span></button>
+  </nav>
+</main>
+
+<div class="overlay" id="adopt" hidden>
+  <div class="sheet">
+    <button class="lang-toggle" data-lang-toggle></button>
+    <h1 data-i18n="title"></h1>
+    <p class="lead" data-i18n="subtitle"></p>
+    <h2 data-i18n="choosePet"></h2>
+    <div class="species-row">
+      <button class="species" data-species="cat"><canvas></canvas><span data-i18n="cat"></span></button>
+      <button class="species" data-species="dog"><canvas></canvas><span data-i18n="dog"></span></button>
+      <button class="species" data-species="bunny"><canvas></canvas><span data-i18n="bunny"></span></button>
+    </div>
+    <h2 data-i18n="chooseColor"></h2>
+    <div class="swatches" id="swatches"></div>
+    <h2 data-i18n="nameLabel"></h2>
+    <input id="name-input" type="text" maxlength="12" autocomplete="off" spellcheck="false">
+    <button class="primary" id="adopt-btn" data-i18n="adopt"></button>
+  </div>
+</div>
+
+<div class="overlay" id="shop" hidden>
+  <div class="sheet">
+    <div class="sheet-head">
+      <h1 data-i18n="shopTitle"></h1>
+      <div class="coins"><canvas class="icon" data-icon="coin" data-size="24"></canvas><span id="shop-coins">0</span></div>
+    </div>
+    <p class="lead" data-i18n="shopLead"></p>
+    <div class="shop-grid" id="shop-grid"></div>
+    <p class="msg" id="shop-msg"></p>
+    <button class="primary" data-close="shop" data-i18n="close"></button>
+  </div>
+</div>
+
+<div class="overlay" id="result" hidden>
+  <div class="sheet center">
+    <h1 data-i18n="timeUp"></h1>
+    <div class="big-score" id="result-score">0</div>
+    <p class="lead" id="result-earned"></p>
+    <p class="msg good" id="result-best"></p>
+    <button class="primary" id="again-btn" data-i18n="again"></button>
+    <button class="secondary" id="home-btn" data-i18n="backHome"></button>
+  </div>
+</div>
+
+<div class="overlay" id="settings" hidden>
+  <div class="sheet">
+    <h1 data-i18n="settings"></h1>
+    <div class="row">
+      <span data-i18n="language"></span>
+      <div class="seg">
+        <button data-lang="en">English</button>
+        <button data-lang="zh">中文</button>
+      </div>
+    </div>
+    <div class="row">
+      <span data-i18n="sound"></span>
+      <div class="seg">
+        <button data-sound="on" data-i18n="on"></button>
+        <button data-sound="off" data-i18n="off"></button>
+      </div>
+    </div>
+    <button class="danger" id="reset-btn" data-i18n="newPet"></button>
+    <button class="primary" data-close="settings" data-i18n="close"></button>
+  </div>
+</div>
+
+<div class="overlay" id="confirm" hidden>
+  <div class="sheet center">
+    <p class="lead" id="confirm-text"></p>
+    <button class="danger" id="confirm-yes" data-i18n="yes"></button>
+    <button class="secondary" data-close="confirm" data-i18n="no"></button>
+  </div>
+</div>
+
+<script src="game.js"></script>
+</body>
+</html>
